@@ -42,4 +42,5 @@ recover false positives.
 - [Architecture](architecture.md) — context, signals, scorer, outcomes
 - [Extending](extending.md) — your own signals, providers, and caches
 - [Testing](testing.md) — fakes and deterministic scoring
+- [Data sources](data-sources.md) — external feeds, licenses, and refresh cadence
 - [Security & privacy](security.md) — honest scope, GDPR Art. 22, data minimization
