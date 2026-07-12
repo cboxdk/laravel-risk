@@ -38,12 +38,18 @@ leaving your server.
 | **Honeypot + timing** | Bots that fill hidden fields or submit in <2s | built-in (spatie technique) |
 | **User-Agent** | `curl`/`python-requests`/headless clients, missing Accept headers | built-in |
 | **Disposable email** | Throwaway signup addresses | bundled list (refresh from [amieiro, MIT](https://github.com/amieiro/disposable-email-domains)) |
+| **MX record** | Email domains that can't receive mail (undeliverable = fake) | DNS |
+| **Velocity** | Too many requests from one IP (stored HMAC-only) | your cache |
 | **IP reputation** | Addresses on many blocklists | [stamparm/ipsum](https://github.com/stamparm/ipsum) (Unlicense) via `risk:refresh-ipsum` |
+| **Tor exit** | Requests via a Tor exit node (moderate) | [official list](https://check.torproject.org/torbulkexitlist) via `risk:refresh-tor` |
 
-**Opt-in drivers** (bring your own key): AbuseIPDB, StopForumSpam, Spamhaus DQS,
+**Opt-in signal** (ships, enable in config): **StopForumSpam** — cached, short
+timeout, fail-open (data is CC BY-NC, fine for self-hosters).
+
+**Opt-in drivers** (bring your own key/implementation): AbuseIPDB, Spamhaus DQS,
 Project Honey Pot, IPQualityScore, MaxMind GeoLite2, HIBP breach API — each a
-`Signal` implementation you enable in config. **No hard dependency on any paid
-API**; an unconfigured signal contributes 0, never an error.
+`Signal` or a bound `IpReputation`/`DisposableDomains` provider. **No hard
+dependency on any paid API**; an unconfigured signal contributes 0, never an error.
 
 ## Install
 

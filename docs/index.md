@@ -37,7 +37,8 @@ recover false positives.
 
 - [Installation](getting-started/installation.md)
 - [Quickstart](getting-started/quickstart.md) — protect a route in one line
-- [Cookbook](cookbook.md) — registration, login, custom actions
+- [Signals & weights](signals.md) — every signal, its points, and how to tune it
+- [Cookbook](cookbook.md) — registration, login, tuning, custom actions
 - [Architecture](architecture.md) — context, signals, scorer, outcomes
 - [Extending](extending.md) — your own signals, providers, and caches
 - [Testing](testing.md) — fakes and deterministic scoring

@@ -6,7 +6,10 @@ use Cbox\Risk\Enums\Outcome;
 use Cbox\Risk\Signals\DisposableEmailSignal;
 use Cbox\Risk\Signals\HoneypotSignal;
 use Cbox\Risk\Signals\IpReputationSignal;
+use Cbox\Risk\Signals\MxRecordSignal;
+use Cbox\Risk\Signals\TorExitSignal;
 use Cbox\Risk\Signals\UserAgentSignal;
+use Cbox\Risk\Signals\VelocitySignal;
 
 return [
 
@@ -27,10 +30,16 @@ return [
      * of these ship free-core with no external API and no key.
      */
     'signals' => [
-        HoneypotSignal::class,       // honeypot field + submit timing
-        UserAgentSignal::class,      // missing/automated UA, missing headers
+        HoneypotSignal::class,        // honeypot field + submit timing
+        UserAgentSignal::class,       // missing/automated UA, missing headers
         DisposableEmailSignal::class, // throwaway email domains (bundled list)
-        IpReputationSignal::class,   // stamparm/ipsum via cache (run risk:refresh-ipsum)
+        MxRecordSignal::class,        // email domain can't receive mail
+        VelocitySignal::class,        // request rate per IP (hashed) + action
+        IpReputationSignal::class,    // stamparm/ipsum via cache (risk:refresh-ipsum)
+        TorExitSignal::class,         // Tor exit node (risk:refresh-tor)
+
+        // Opt-in (external API, CC BY-NC data) — uncomment to enable:
+        // Cbox\Risk\Signals\StopForumSpamSignal::class,
     ],
 
     /*
@@ -41,7 +50,42 @@ return [
         'honeypot' => 1.0,
         'user_agent' => 1.0,
         'email.disposable' => 1.0,
+        'email.no_mx' => 1.0,
+        'velocity' => 1.0,
         'ip.reputation' => 1.0,
+        'ip.tor_exit' => 1.0,
+        'ip.stopforumspam' => 1.0,
+    ],
+
+    /*
+     * Velocity signal: count '<action>' requests per (hashed) IP within `window`
+     * seconds; points start once `threshold` is exceeded, scaling with the overage.
+     */
+    'velocity' => [
+        'window' => 300,
+        'threshold' => 5,
+    ],
+
+    /*
+     * IP reputation (ipsum) bands. `level` is how many independent blocklists the
+     * IP appears on — the more corroboration, the more points. Two bands: a strong
+     * one (many lists) and a medium one. Never dispositive alone (CGNAT/shared IPs).
+     */
+    'ip_reputation' => [
+        'strong_level' => 5,
+        'strong_points' => 50,
+        'medium_level' => 3,
+        'medium_points' => 25,
+    ],
+
+    /*
+     * Honeypot signal tuning. `min_seconds` is the fastest a genuine human submits;
+     * anything quicker scores. A filled honeypot always scores `filled_points`.
+     */
+    'honeypot_signal' => [
+        'min_seconds' => 2,
+        'filled_points' => 100,
+        'too_fast_points' => 60,
     ],
 
     /*

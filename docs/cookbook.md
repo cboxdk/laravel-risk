@@ -50,17 +50,55 @@ public function handle(RiskAssessed $event): void
 
 This keeps a person in the loop for significant decisions (GDPR Art. 22).
 
-## Tune weights and thresholds
+## Calibrate before you enforce (the tuning workflow)
 
-Start in monitor mode, watch the logged scores for a week, then adjust:
+1. **Ship in `monitor` mode** (the default). Nothing is blocked yet.
+2. **Log every decision** with its reasons (see the audit-trail recipe above).
+3. **Watch for a week.** Look at the score distribution and *which signals fire on
+   your real users*. A signal that fires constantly on legitimate traffic (e.g.
+   `user_agent` because your app has many API clients) should be down-weighted.
+4. **Adjust weights and thresholds**, still in monitor mode, until the scores you'd
+   act on line up with the requests you'd actually want to challenge.
+5. **Flip `RISK_MODE=enforce`.** Start by enforcing only the top band (`Reject`),
+   then enable `Challenge`/`StepUp` handling as you gain confidence.
 
 ```php
 'weights' => [
-    'ip.reputation' => 1.5,     // trust it more
+    'ip.reputation' => 1.5,     // trust ipsum more
     'user_agent'    => 0.5,     // you get lots of legit odd UAs
 ],
 'thresholds' => [
     Outcome::Challenge->value => 40, // raise to reduce CAPTCHAs
+],
+```
+
+## Combine signals — no single one should block
+
+The model is additive on purpose: one weak signal shouldn't lock anyone out, but
+several together should. Worked examples with default points:
+
+| Request | Signals (points) | Total | Outcome |
+|---------|------------------|-------|---------|
+| Tor user, clean otherwise | `ip.tor_exit` (20) | 20 | Flag |
+| Disposable email on a datacenter IP | `email.disposable` (40) + `ip.reputation` medium (25) | 65 | StepUp |
+| Bot: filled honeypot | `honeypot` (100) | 100 | Reject |
+| Made-up throwaway address | `email.disposable` (40) + `email.no_mx` (50) | 90 | Reject |
+| Scripted signup | `user_agent` curl (45) + `velocity` (30) | 75 | StepUp |
+
+Tune the weights so the *combinations you care about* land in the band you want —
+that's the whole job.
+
+## Weight an IP by how many lists it's on
+
+`ip.reputation` already bands by ipsum level (how many blocklists corroborate the
+IP). Make the strong band count for more:
+
+```php
+'ip_reputation' => [
+    'strong_level'  => 5,   // on >= 5 lists
+    'strong_points' => 70,  // ...counts a lot (was 50)
+    'medium_level'  => 3,
+    'medium_points' => 20,
 ],
 ```
 

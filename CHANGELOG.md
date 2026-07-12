@@ -15,9 +15,14 @@ Initial release.
   a full per-signal reasons breakdown on every assessment.
 - Free-core signals (no paid API, clean licenses): `HoneypotSignal` (field +
   submit timing), `UserAgentSignal` (automated clients, missing headers),
-  `DisposableEmailSignal` (bundled list), `IpReputationSignal` (stamparm/ipsum via
-  cache).
-- `risk:refresh-ipsum` command to cache the ipsum feed for O(1) per-request lookups.
+  `DisposableEmailSignal` (bundled list), `MxRecordSignal` (undeliverable email),
+  `VelocitySignal` (per-IP request rate, HMAC-stored), `IpReputationSignal`
+  (stamparm/ipsum, banded by list count), and `TorExitSignal`.
+- Opt-in `StopForumSpamSignal` (cached, short-timeout, fail-open; CC BY-NC data).
+- `risk:refresh-ipsum` and `risk:refresh-tor` commands to cache the feeds for O(1)
+  per-request lookups.
+- Configurable per-signal bands (ipsum levels/points, honeypot timing, velocity
+  window/threshold) in addition to the weights and outcome thresholds.
 - `risk:<action>` middleware and a `RiskAssessed` event as the primary extension
   hook; `Risk` facade for manual scoring.
 - Contract-based providers (`IpReputation`, `DisposableDomains`) and cache so hosts
