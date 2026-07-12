@@ -35,7 +35,7 @@ php artisan risk:refresh-ipsum
 
 ## Requirements
 
-- PHP `^8.4`, Laravel 12.
+- PHP `^8.4`, Laravel 12 or 13.
 - A cache store (any Laravel driver) for IP reputation and velocity data — Redis
   recommended in production.
 
