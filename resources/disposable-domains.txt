@@ -1,0 +1,36 @@
+# Starter list of common disposable / throwaway email domains.
+# This is a curated subset — for full coverage, refresh from
+# amieiro/disposable-email-domains (MIT) and point risk.disposable_domains_path at it.
+0-mail.com
+10minutemail.com
+20minutemail.com
+33mail.com
+guerrillamail.com
+guerrillamail.net
+guerrillamail.org
+mailinator.com
+mailinator.net
+maildrop.cc
+mailnesia.com
+mintemail.com
+mohmal.com
+sharklasers.com
+spam4.me
+temp-mail.org
+tempmail.com
+tempmailo.com
+throwawaymail.com
+trashmail.com
+trashmail.net
+yopmail.com
+yopmail.net
+getnada.com
+dispostable.com
+fakeinbox.com
+tempinbox.com
+emailondeck.com
+mytemp.email
+moakt.com
+tmpmail.org
+tmpmail.net
+burnermail.io

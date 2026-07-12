@@ -1,0 +1,59 @@
+{
+    "name": "cboxdk/laravel-risk",
+    "description": "Cbox Risk — an explainable, config-driven request risk-scoring pipeline for Laravel. Weights signals (IP reputation, geo, disposable email, velocity, bot timing) into a score and an outcome: allow, challenge, step-up, or reject.",
+    "type": "library",
+    "license": "MIT",
+    "keywords": ["laravel", "security", "risk", "fraud", "anti-bot", "spam", "abuse"],
+    "authors": [
+        { "name": "Cbox", "homepage": "https://cboxdk.com" }
+    ],
+    "support": {
+        "issues": "https://github.com/cboxdk/laravel-risk/issues",
+        "source": "https://github.com/cboxdk/laravel-risk",
+        "security": "https://github.com/cboxdk/laravel-risk/security/policy"
+    },
+    "require": {
+        "php": "^8.4",
+        "illuminate/contracts": "^12.0",
+        "illuminate/http": "^12.0",
+        "illuminate/support": "^12.0"
+    },
+    "require-dev": {
+        "larastan/larastan": "^3.0",
+        "laravel/pint": "^1.18",
+        "orchestra/testbench": "^10.0",
+        "pestphp/pest": "^3.5"
+    },
+    "bin": [
+        "bin/check-licenses.php",
+        "bin/generate-sbom.php"
+    ],
+    "autoload": {
+        "psr-4": { "Cbox\\Risk\\": "src/" }
+    },
+    "autoload-dev": {
+        "psr-4": { "Cbox\\Risk\\Tests\\": "tests/" }
+    },
+    "scripts": {
+        "lint": "pint --test",
+        "analyse": "phpstan analyse --no-progress --memory-limit=1G",
+        "test": "pest",
+        "license-check": "@php bin/check-licenses.php",
+        "sbom": "@php bin/generate-sbom.php",
+        "qa": ["@lint", "@analyse", "@test", "@license-check", "@composer audit"]
+    },
+    "scripts-descriptions": {
+        "license-check": "Fail if any dependency is not permissively licensed (SBOM/compliance gate).",
+        "sbom": "Generate a CycloneDX 1.5 SBOM (sbom.json) from composer.lock.",
+        "qa": "Run the full quality gate: lint, static analysis, tests, license check, security audit."
+    },
+    "extra": {
+        "laravel": { "providers": ["Cbox\\Risk\\RiskServiceProvider"] }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "config": {
+        "sort-packages": true,
+        "allow-plugins": { "pestphp/pest-plugin": true }
+    }
+}
