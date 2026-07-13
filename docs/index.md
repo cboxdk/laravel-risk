@@ -29,7 +29,7 @@ RiskContext ── [ Signal, Signal, Signal … ] ──► score ──► Outc
 
 Because a wrong block locks out a real user, and because an automated decision that
 materially affects someone carries obligations (GDPR Art. 22 — see
-[Security](security/index.md)). Cbox Risk prefers **friction over refusal** (CAPTCHA,
+[Security](security/_index.md)). Cbox Risk prefers **friction over refusal** (CAPTCHA,
 step-up) and is **explainable by construction**, so you can tune it, justify it, and
 recover false positives.
 
@@ -39,9 +39,9 @@ recover false positives.
 - [Installation](getting-started/installation.md)
 - [Quickstart](quickstart.md) — protect a route in one line
 - [Signals & weights](core-concepts/signals.md) — every signal, its points, and how to tune it
-- [Cookbook](cookbook/index.md) — registration, login, tuning, custom actions
+- [Cookbook](cookbook/_index.md) — registration, login, tuning, custom actions
 - [Architecture](core-concepts/architecture.md) — context, signals, scorer, outcomes
-- [Extending](extension-points/index.md) — your own signals, providers, and caches
+- [Extending](extension-points/_index.md) — your own signals, providers, and caches
 - [Testing](getting-started/testing.md) — fakes and deterministic scoring
 - [Data sources](core-concepts/data-sources.md) — external feeds, licenses, and refresh cadence
-- [Security & privacy](security/index.md) — honest scope, GDPR Art. 22, data minimization
+- [Security & privacy](security/_index.md) — honest scope, GDPR Art. 22, data minimization

@@ -35,7 +35,7 @@ class LogRiskDecision
 }
 ```
 
-Note the **hashed IP** — see [Security](../security/index.md) on data minimization.
+Note the **hashed IP** — see [Security](../security/_index.md) on data minimization.
 
 ## Route high risk to human review instead of auto-blocking
 

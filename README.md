@@ -113,7 +113,7 @@ final class GeoVelocitySignal implements Signal
 IP addresses and fingerprints are personal data. Fraud prevention is a recognized
 legitimate interest (GDPR Recital 47), but you owe users **explainability and human
 review** under **Article 22** — which is exactly why this scorer is transparent, not
-a black box. See [`docs/security/index.md`](docs/security/index.md) for the Art. 22 guidance,
+a black box. See [`docs/security/index.md`](docs/security/_index.md) for the Art. 22 guidance,
 data-minimization defaults, and retention advice.
 
 ## License
