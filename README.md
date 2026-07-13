@@ -77,7 +77,7 @@ this one refuses to.
 Weighted-additive and deliberately **not** machine learning: `score = Σ (signal
 points × weight)`, mapped to the most severe outcome band it reaches. It's
 explainable by construction — `$assessment->reasons()` tells you exactly which
-signals fired and why. See [`docs/architecture.md`](docs/architecture.md).
+signals fired and why. See [`docs/core-concepts/architecture.md`](docs/core-concepts/architecture.md).
 
 Defaults (all configurable): Flag ≥15, Challenge ≥30, Step-up ≥60, Reject ≥80.
 Allowlisted IPs and email domains bypass scoring entirely.
@@ -113,7 +113,7 @@ final class GeoVelocitySignal implements Signal
 IP addresses and fingerprints are personal data. Fraud prevention is a recognized
 legitimate interest (GDPR Recital 47), but you owe users **explainability and human
 review** under **Article 22** — which is exactly why this scorer is transparent, not
-a black box. See [`docs/security.md`](docs/security.md) for the Art. 22 guidance,
+a black box. See [`docs/security/index.md`](docs/security/index.md) for the Art. 22 guidance,
 data-minimization defaults, and retention advice.
 
 ## License

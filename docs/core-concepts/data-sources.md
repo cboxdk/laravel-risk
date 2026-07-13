@@ -32,7 +32,7 @@ The honeypot and user-agent signals use **no external data** at all.
 ## Opt-in (bring your own key / implementation)
 
 Add these as a custom `Signal` or by binding `IpReputation` / `DisposableDomains`
-(see [Extending](extending.md)):
+(see [Extending](../extension-points/index.md)):
 
 | Source | License / cost | Notes |
 |--------|----------------|-------|

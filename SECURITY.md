@@ -18,7 +18,7 @@ config.
 This is a scoring **aid**, defense in depth — not a complete anti-abuse solution.
 It must be paired with rate limiting, authentication, and (where relevant) a WAF.
 See the "What this is — and isn't" and GDPR sections of
-[docs/security.md](docs/security.md).
+[docs/security.md](docs/security/index.md).
 
 ## Supported versions
 

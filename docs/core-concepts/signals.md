@@ -90,7 +90,7 @@ Two independent email signals:
   small starter set; publish and refresh the full
   [amieiro/disposable-email-domains](https://github.com/amieiro/disposable-email-domains)
   (MIT) list and point `risk.disposable_domains_path` at it. Or bind your own
-  `DisposableDomains` (e.g. DB-backed) — see [Extending](extending.md).
+  `DisposableDomains` (e.g. DB-backed) — see [Extending](../extension-points/index.md).
 - **`email.no_mx`** — the domain can't receive mail at all. Independent of the
   disposable list: a typo domain or a made-up one scores here even if it isn't a
   known disposable provider.
@@ -110,4 +110,4 @@ alone — appropriate, since the address is both throwaway and undeliverable.
 ```
 
 Raise a band to be more permissive (fewer CAPTCHAs), lower it to be stricter. See
-[Cookbook → tuning](cookbook.md) for a calibration workflow.
+[Cookbook → tuning](../cookbook/index.md) for a calibration workflow.

@@ -78,4 +78,4 @@ persistence is your listener's choice — so these defaults are yours to set.
 ## Reporting
 
 Found a bypass or a signal that misfires in a way that enables abuse? See
-[SECURITY.md](../SECURITY.md) for private disclosure and safe-harbor terms.
+[SECURITY.md](../../SECURITY.md) for private disclosure and safe-harbor terms.

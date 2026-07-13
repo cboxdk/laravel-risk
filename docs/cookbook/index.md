@@ -12,7 +12,7 @@ weight: 4
 Route::post('/register', RegisterController::class)->middleware('risk:register');
 ```
 
-Add the honeypot inputs to the form (see [Quickstart](getting-started/quickstart.md))
+Add the honeypot inputs to the form (see [Quickstart](../quickstart.md))
 and branch on the stashed assessment for CAPTCHA/step-up.
 
 ## Log every decision (the audit trail)
@@ -35,7 +35,7 @@ class LogRiskDecision
 }
 ```
 
-Note the **hashed IP** — see [Security](security.md) on data minimization.
+Note the **hashed IP** — see [Security](../security/index.md) on data minimization.
 
 ## Route high risk to human review instead of auto-blocking
 

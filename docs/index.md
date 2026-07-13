@@ -29,18 +29,19 @@ RiskContext ── [ Signal, Signal, Signal … ] ──► score ──► Outc
 
 Because a wrong block locks out a real user, and because an automated decision that
 materially affects someone carries obligations (GDPR Art. 22 — see
-[Security](security.md)). Cbox Risk prefers **friction over refusal** (CAPTCHA,
+[Security](security/index.md)). Cbox Risk prefers **friction over refusal** (CAPTCHA,
 step-up) and is **explainable by construction**, so you can tune it, justify it, and
 recover false positives.
 
 ## Read next
 
+- [Requirements](requirements.md) — PHP and Laravel versions
 - [Installation](getting-started/installation.md)
-- [Quickstart](getting-started/quickstart.md) — protect a route in one line
-- [Signals & weights](signals.md) — every signal, its points, and how to tune it
-- [Cookbook](cookbook.md) — registration, login, tuning, custom actions
-- [Architecture](architecture.md) — context, signals, scorer, outcomes
-- [Extending](extending.md) — your own signals, providers, and caches
-- [Testing](testing.md) — fakes and deterministic scoring
-- [Data sources](data-sources.md) — external feeds, licenses, and refresh cadence
-- [Security & privacy](security.md) — honest scope, GDPR Art. 22, data minimization
+- [Quickstart](quickstart.md) — protect a route in one line
+- [Signals & weights](core-concepts/signals.md) — every signal, its points, and how to tune it
+- [Cookbook](cookbook/index.md) — registration, login, tuning, custom actions
+- [Architecture](core-concepts/architecture.md) — context, signals, scorer, outcomes
+- [Extending](extension-points/index.md) — your own signals, providers, and caches
+- [Testing](getting-started/testing.md) — fakes and deterministic scoring
+- [Data sources](core-concepts/data-sources.md) — external feeds, licenses, and refresh cadence
+- [Security & privacy](security/index.md) — honest scope, GDPR Art. 22, data minimization
