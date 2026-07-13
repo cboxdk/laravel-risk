@@ -4,9 +4,9 @@
 
 **Do not open a public issue.** Report privately via
 [GitHub Private Vulnerability Reporting](https://github.com/cboxdk/laravel-risk/security/advisories/new)
-or email **security@cboxdk.com**. We acknowledge within 2 business days and aim to
-fix confirmed High/Critical issues within 30 days. Good-faith research under this
-policy is authorized (safe harbor).
+(repository → **Security** → **Report a vulnerability**). This is a pre-1.0,
+best-effort open-source project; we'll respond as promptly as we can and coordinate
+disclosure with you. Good-faith research under this policy is authorized (safe harbor).
 
 Especially wanted: a **signal bypass** (input that should score as risky but
 doesn't), or a **false-positive amplifier** (a way to make the scorer block
