@@ -46,6 +46,40 @@ final class ImpossibleTravelSignal implements Signal
 'weights' => ['geo.impossible_travel' => 1.0],
 ```
 
+The config array is the **host's** list. It's the right place for a signal your own
+app owns.
+
+## A signal from a package (the `SignalRegistry` hook)
+
+When the signal ships in a *package* — a premium adaptive-risk plugin, a bespoke
+fraud check — it can't reach the host's `config/risk.php`. Register it on the
+`SignalRegistry` from the package's own service provider instead, and it joins the
+pipeline with **zero host edits**:
+
+```php
+use Cbox\Risk\Facades\Risk;
+
+public function boot(): void
+{
+    Risk::signals()->register(ImpossibleTravelSignal::class, weight: 1.5);
+}
+```
+
+- Pass an **instance** or a **`class-string`** — a class-string is resolved from the
+  container, so the signal gets its dependencies injected (exactly like the config
+  path).
+- The optional `weight` seeds `config('risk.weights')` for this signal's `key()`.
+  If the host *also* sets a weight for that key, the **host's config wins** — an
+  operator can always dial a package's signal down (or to `0`) without touching the
+  package.
+- Registry signals run **alongside** the config signals, after them. Registering
+  nothing changes nothing (deny-by-default); registering a class that isn't a
+  `Signal` fails loud, never silently.
+
+This is the hook the commercial **risk-plus** plugin uses to light up geo /
+impossible-travel and new-device signals on install. Resolve the registry directly
+(`app(SignalRegistry::class)`) if you prefer constructor injection over the facade.
+
 ## Your own IP-reputation provider
 
 The default reads the ipsum feed from your cache. To use AbuseIPDB, your own

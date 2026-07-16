@@ -11,8 +11,10 @@ use Cbox\Risk\Contracts\IpReputation;
 use Cbox\Risk\Contracts\MailDomainResolver;
 use Cbox\Risk\Contracts\RiskScorer;
 use Cbox\Risk\Contracts\Signal;
+use Cbox\Risk\Contracts\SignalRegistry;
 use Cbox\Risk\Contracts\TorExitNodes;
 use Cbox\Risk\Http\AssessRequest;
+use Cbox\Risk\Registry\DefaultSignalRegistry;
 use Cbox\Risk\Signals\HoneypotSignal;
 use Cbox\Risk\Signals\IpReputationSignal;
 use Cbox\Risk\Signals\VelocitySignal;
@@ -38,6 +40,10 @@ final class RiskServiceProvider extends ServiceProvider
         $this->app->singleton(IpReputation::class, CacheIpReputation::class);
         $this->app->singleton(TorExitNodes::class, CacheTorExitNodes::class);
         $this->app->singleton(MailDomainResolver::class, SystemMailDomainResolver::class);
+
+        // The package hook: a shared registry other providers push signals into
+        // from their boot(). Kept a singleton so every plugin extends one pipeline.
+        $this->app->singleton(SignalRegistry::class, static fn (Application $app): SignalRegistry => new DefaultSignalRegistry($app));
 
         // The velocity signal needs a secret to HMAC IPs; wire it from app.key.
         $this->app->bind(VelocitySignal::class, function (Application $app): VelocitySignal {
@@ -67,9 +73,15 @@ final class RiskServiceProvider extends ServiceProvider
         ));
 
         $this->app->singleton(RiskScorer::class, function (Application $app): RiskScorer {
+            $registry = $app->make(SignalRegistry::class);
+
             return new WeightedScorer(
-                $this->signals($app),
-                $this->floatMap(config('risk.weights', [])),
+                // Config signals (the host's list) plus registry signals (from
+                // installed packages). Resolved here at first use — after boot —
+                // so every provider has had its chance to register.
+                [...$this->signals($app), ...$registry->all()],
+                // Host config weights override any defaults a registration supplied.
+                array_merge($registry->weights(), $this->floatMap(config('risk.weights', []))),
                 $this->floatMap(config('risk.thresholds', [])),
                 $this->stringList(config('risk.allow.ips', [])),
                 $this->stringList(config('risk.allow.email_domains', [])),
